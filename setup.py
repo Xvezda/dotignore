@@ -36,7 +36,7 @@ setup(
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Topic :: Software Development',
-        'Topic :: Software Development :: Version Control :: Git'
+        'Topic :: Software Development :: Version Control :: Git',
         'Topic :: Terminals',
         'Topic :: Utilities',
     ],
