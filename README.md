@@ -2,6 +2,7 @@
 
 [![Version](https://img.shields.io/pypi/v/dotignore)](https://pypi.org/project/dotignore)
 [![License](https://img.shields.io/pypi/l/dotignore)](https://pypi.org/project/dotignore)
+[![Platform](https://img.shields.io/pypi/pyversions/dotignore)](https://pypi.org/project/dotignore)
 
 Command line tool to generate dotignore files
 
