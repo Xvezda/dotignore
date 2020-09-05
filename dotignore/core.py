@@ -185,7 +185,15 @@ def git_command(args):
 
         res = json.loads(r.text)
         source = res.get('source')
-        with open(args.output, 'w') as f:
+        mode = 'w'
+        if os.path.exists(args.output):
+            if not args.append:
+                print("file '%s' already exists!" % args.output,
+                      file=sys.stderr)
+                return sys.exit(1)
+            mode = 'a'
+
+        with open(args.output, mode) as f:
             f.write(source)
         print('template of %s has been used' % name)
 
