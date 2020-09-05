@@ -24,15 +24,30 @@ setup(
     url='https://github.com/%s/%s' % (__author__, __title__),
     author=__author__,
     author_email=__email__,
-    classifiers=[],
+    classifiers=[
+        'Development Status :: 2 - Pre-Alpha',
+        'Environment :: Console',
+        'License :: OSI Approved :: MIT License',
+        'Programming Language :: Python :: 2',
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
+        'Topic :: Software Development',
+        'Topic :: Software Development :: Version Control :: Git'
+        'Topic :: Terminals',
+        'Topic :: Utilities',
+    ],
     entry_points={
         'console_scripts': [
             'dotignore=dotignore.cli:main',
         ]
     },
-    keywords=[],
+    keywords=['git', 'ignore files', 'command line tool'],
     packages=find_packages(),
-    install_requires=[],
+    install_requires=['requests'],
     tests_require=[],
     zip_safe=False,
 )
