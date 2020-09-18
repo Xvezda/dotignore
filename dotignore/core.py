@@ -177,7 +177,8 @@ def git_command(args):
     langs = json.loads(r.text)
 
     if args.list:
-        print('\n'.join(langs))
+        import pydoc
+        pydoc.pager('\n'.join(langs))
         return
 
     if args.name:
