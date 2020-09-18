@@ -42,6 +42,7 @@ def main():
                             help='append to .gitignore file if already exists')
     git_parser.add_argument('--token', '-t', type=str, default='',
                             help='set GitHub api token')
+    git_parser.add_argument('--interactive', '-i', action='store_true')
     git_parser.add_argument('name', nargs='?')
     git_parser.set_defaults(func=git_command)
 
