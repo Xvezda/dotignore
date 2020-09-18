@@ -20,7 +20,16 @@ import requests
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.StreamHandler())
 
+PY2 = sys.version_info[0] == 2
+PY3 = sys.version_info[0] == 3
 
+if PY2:
+    input = raw_input
+
+
+DID_YOU_MEAN_INDENT = 2
+DID_YOU_MEAN_COUNT= 3
+DID_YOU_MEAN_RETRY = 3
 GITHUB_API_URL = 'https://api.github.com/gitignore/templates'
 
 
@@ -177,12 +186,47 @@ def git_command(args):
     langs = json.loads(r.text)
 
     if args.list:
-        print('\n'.join(langs))
+        import pydoc
+        pydoc.pager('\n'.join(langs))
         return
 
     if args.name:
-        closest = rank(langs, args.name)[0]
+        ranks = rank(langs, args.name)
+        closest = ranks[0]
         name, dist = closest
+        if (name.lower() != args.name.lower()
+                and args.interactive and sys.stdin.isatty()):
+            cnt = 1
+            while cnt <= DID_YOU_MEAN_RETRY:
+                print('did you mean?')
+                for i in range(DID_YOU_MEAN_COUNT * cnt):
+                    print(' ' * DID_YOU_MEAN_INDENT
+                          + '[%d]' % (i+1), ranks[i][0])
+                print()
+                print('[1-9]: select number, '
+                      '[m]ore: more suggestions')
+                try:
+                    selected = input('> ')
+                except (KeyboardInterrupt, EOFError):
+                    print('cancel', file=sys.stderr)
+                    sys.exit(1)
+
+                if not selected:
+                    selected = '1'
+
+                if selected.isdigit():
+                    num = int(selected)
+                    try:
+                        name, dist = ranks[num-1]
+                    except IndexError:
+                        pass
+                    else:
+                        break
+                cnt += 1
+            else:
+                print('out of suggestions :/')
+                print('quit.')
+                sys.exit(1)
 
         r = requests.get(GITHUB_API_URL + '/%s' % name)
         if r.status_code != 200:
